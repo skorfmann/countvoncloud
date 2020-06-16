@@ -8,6 +8,7 @@ const searchClient = algoliasearch(
 const search = instantsearch({
   indexName: 'iam-actions',
   searchClient,
+  routing: true,
 });
 
 search.addWidgets([
