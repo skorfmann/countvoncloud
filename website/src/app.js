@@ -21,7 +21,7 @@ search.addWidgets([
 <a href="{{ url }}" target="_blank">
   <article>
     <h1>{{#helpers.highlight}}{ "attribute": "fqn" }{{/helpers.highlight}}</h1>
-    <p>{{ description }}</p>
+    <p>{{#helpers.highlight}}{ "attribute": "description" }{{/helpers.highlight}}</p>
   </article>
 </a>
 `,
