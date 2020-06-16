@@ -19,8 +19,15 @@
 }
 
 .header-title {
+  display: flex;
+  align-items: center;
   font-size: 1.2rem;
   font-weight: normal;
+}
+
+.header-title img {
+  margin-right: 12px;
+  border-radius: 50%;
 }
 
 .header-subtitle {
@@ -52,6 +59,10 @@
 
 #searchbox {
   margin-bottom: 2rem;
+}
+
+.sponsored {
+  color: #fc2364;
 }
 
 #pagination {

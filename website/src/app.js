@@ -17,12 +17,43 @@ search.addWidgets([
   }),
   instantsearch.widgets.infiniteHits({
     container: '#hits',
+    transformItems: items =>
+      items.reduce((accumulator, item, index) => {
+        const position = Math.min(2, items.length - 1);
+        if (index === position) {
+          accumulator.push({
+            ...item,
+          });
+          accumulator.push({
+            sponsored: true,
+            fqn: 'CDK Weekly',
+            description:
+              'The best news, articles and projects around the AWS Cloud Development Kit (CDK)',
+            url: 'https://www.cdkweekly.com/',
+            __position: item.__position + 1,
+          });
+        } else if (index > position) {
+          accumulator.push({
+            ...item,
+            __position: item.__position + 1,
+          });
+        } else {
+          accumulator.push(item);
+        }
+        return accumulator;
+      }, []),
     templates: {
       item: `
 <a href="{{ url }}" target="_blank">
-  <article>
-    <h1>{{#helpers.highlight}}{ "attribute": "fqn" }{{/helpers.highlight}}</h1>
-    <p>{{#helpers.highlight}}{ "attribute": "description" }{{/helpers.highlight}}</p>
+    <article class="{{#sponsored}}sponsored{{/sponsored}}">
+    {{^sponsored}}
+      <h1>{{#helpers.highlight}}{ "attribute": "fqn" }{{/helpers.highlight}}</h1>
+      <p>{{#helpers.highlight}}{ "attribute": "description" }{{/helpers.highlight}}</p>
+    {{/sponsored}}
+    {{#sponsored}}
+      <h1>{{ fqn }}</h1>
+      <p>{{ description }}</p>
+    {{/sponsored}}
   </article>
 </a>
 `,
